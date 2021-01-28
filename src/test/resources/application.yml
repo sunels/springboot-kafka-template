@@ -1,0 +1,8 @@
+
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      group-id: mytestgroup
+test:
+  topic: embedded-test-topic

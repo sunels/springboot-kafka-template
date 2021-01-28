@@ -1,0 +1,56 @@
+kafka:
+  topicname: tickets
+
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      auto-offset-reset: earliest
+      group-id: mytestgroup-1
+      enable-auto-commit: true
+      auto.commit.interval.ms: 3000
+      auto-commit-interval: 1000
+      auto.commit.offset: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    listener:
+      ack-mode: record
+
+  main.banner-mode: off
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  flyway.enabled: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: root
+
+    config:
+      poolName: "rezt"
+      connection-timeout: 3000 # Default: 30000 (30 seconds)
+      maximum-pool-size: 5 # Default: 10
+      minimumIdle: 5  # Default: same as maximum-pool-size
+      maxLifetime: 600000 # Default: 1800000 (30 minutes)
+      connectionInitSql: "SELECT 1" # Default: none
+
+server:
+  port: 8080
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    com.example.*: DEBUG
+    org.hibernate: ERROR
